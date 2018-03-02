@@ -11,13 +11,16 @@ def serial():
 
 def job(q, a):
     res = 0
+    #两个进程/线程分别负责前半部分和后半部分
     for i in range(50000*a, 50000*(a+1)):
         res += i**3 + i**2 + i
+    #结果放入queue中
     q.put(res)
 
 def multiprocess():
     # 使用queue
     q = mp.Queue()
+    #传入参数
     p1 = mp.Process(target=job, args=(q, 0))
     p2 = mp.Process(target=job, args=(q, 1))
     p1.start()

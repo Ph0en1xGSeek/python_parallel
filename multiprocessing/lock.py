@@ -3,11 +3,13 @@ import multiprocessing as mp
 import time
 
 def job(v, num, l):
+    #请求锁
     l.acquire()
     for _ in range(10):
         time.sleep(0.1)
         v.value = v.value + num
         print(v.value)
+    #释放锁
     l.release()
 
 def multiprocess():
